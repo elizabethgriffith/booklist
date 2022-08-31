@@ -25,7 +25,17 @@ class UI {
   }
 
   showAlert (message, className){
-
+    // Create div, add classes, add text, get parent, get form, insert alert
+    const div = document.createElement('div')
+    div.className = `alert ${className}`
+    div.appendChild(document.createTextNode(message))
+    const container = document.querySelector('.container')
+    const form = document.getElementById('book-form')
+    container.insertBefore(div, form)
+    // Timeout after 2 seconds
+    setTimeout(function(){
+      document.querySelector('.alert').remove()
+    }, 2000)
   }
   deleteBook(target){
     if (target.className === 'delete'){
@@ -66,7 +76,7 @@ function addBookToList(e){
   
   // Validation
   if (title === '' || author === '' || genre === '' || rating === ''){
-    alert('Fail')
+    ui.showAlert('Please ensure all fields are filled in', 'error')
   } else {
     // Add book to list, clear fields
     console.log(book)
