@@ -19,7 +19,7 @@ class UI {
     <td>${book.author}</td>
     <td>${book.genre}</td>
     <td>${book.rating}</td>
-    <td>X</td>
+    <td><a href="#" class="delete">X</a></td>
     `
     list.appendChild(row)
   }
@@ -28,7 +28,9 @@ class UI {
 
   }
   deleteBook(target){
-
+    if (target.className === 'delete'){
+      target.parentElement.parentElement.remove()
+    }
   }
   clearFields(){
     document.getElementById('title').value = ''
@@ -50,7 +52,7 @@ class UI {
   // add page load listener
 
   document.getElementById('book-form').addEventListener('submit', addBookToList)
-  //document.getElementById('book-list').addEventListener('click', deleteBookFromList)
+  document.getElementById('book-list').addEventListener('click', deleteBookFromList)
 
 function addBookToList(e){
   // Get form input values
@@ -58,17 +60,25 @@ function addBookToList(e){
     author = document.getElementById('author').value,
     genre = document.getElementById('genre').value,
     rating = document.getElementById('rating').value
-  // Instantiate Book
+  // Instantiate Book and UI
   const book = new Book(title, author, genre, rating)
-  // Instantiate UI
   const ui = new UI()
   
   // Add validation
   
-  // Add book to list
+  // Add book to list, clear fields
   ui.addBook(book)
-
   ui.clearFields()
+
+  e.preventDefault()
+}
+
+function deleteBookFromList(e){
+  // Instantiate UI
+  const ui = new UI()
+  // Delete book from list
+  ui.deleteBook(e.target)
+
 
   e.preventDefault()
 }
