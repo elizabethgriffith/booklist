@@ -1,4 +1,4 @@
-// Create Book Class
+// Book Class
 class Book {
   constructor(title, author, genre, rating){
     this.title = title
@@ -10,7 +10,18 @@ class Book {
 // Create UI Class
 class UI {
   addBook (book){
+    const list = document.getElementById('book-list')
 
+    // Create tr, insert columns, append to list
+    const row = document.createElement('tr')
+    row.innerHTML = `
+    <td>${book.title}</td>
+    <td>${book.author}</td>
+    <td>${book.genre}</td>
+    <td>${book.rating}</td>
+    <td>X</td>
+    `
+    list.appendChild(row)
   }
 
   showAlert (message, className){
@@ -35,7 +46,29 @@ class UI {
     // addBook
     // deleteBook
 
-// Add Event Listeners
-  // page load
-  // add book
-  // delete book
+// Event Listeners - page load, add book, delete book
+  // add page load listener
+
+  document.getElementById('book-form').addEventListener('submit', addBookToList)
+  //document.getElementById('book-list').addEventListener('click', deleteBookFromList)
+
+function addBookToList(e){
+  // Get form input values
+  const title = document.getElementById('title').value,
+    author = document.getElementById('author').value,
+    genre = document.getElementById('genre').value,
+    rating = document.getElementById('rating').value
+  // Instantiate Book
+  const book = new Book(title, author, genre, rating)
+  // Instantiate UI
+  const ui = new UI()
+  
+  // Add validation
+  
+  // Add book to list
+  ui.addBook(book)
+
+  ui.clearFields()
+
+  e.preventDefault()
+}
