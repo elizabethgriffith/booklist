@@ -64,11 +64,17 @@ function addBookToList(e){
   const book = new Book(title, author, genre, rating)
   const ui = new UI()
   
-  // Add validation
+  // Validation
+  if (title === '' || author === '' || genre === '' || rating === ''){
+    alert('Fail')
+  } else {
+    // Add book to list, clear fields
+    console.log(book)
+    ui.addBook(book)
+    ui.clearFields()
+  }
   
-  // Add book to list, clear fields
-  ui.addBook(book)
-  ui.clearFields()
+  
 
   e.preventDefault()
 }
