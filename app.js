@@ -51,16 +51,38 @@ class UI {
 }
  
 
-// Create Local Storage Class
-  // Add methods
-    // getBooks
-    // displayBooks
-    // addBook
-    // deleteBook
+// Local Storage Class
+class LocalStorage {
+  static getBooks(){
+    let books;
+    if(localStorage.getItem('books') === null){
+      books = []
+    } else {
+      books = JSON.parse(localStorage.getItem('books'))
+    }
+
+    return books
+  }
+  static displayBooks(){
+    const books = LocalStorage.getBooks()
+    books.forEach(function(book){
+      const ui = new UI
+      ui.addBook(book)
+    })
+  }
+  static addBook(book){
+    const books = LocalStorage.getBooks()
+    books.push(book)
+    localStorage.setItem('books', JSON.stringify(books))
+  }
+  static deleteBook(){
+    const books = LocalStorage.getBooks()
+  }
+}
+ 
 
 // Event Listeners - page load, add book, delete book
-  // add page load listener
-
+  document.addEventListener('DOMContentLoaded', LocalStorage.displayBooks)
   document.getElementById('book-form').addEventListener('submit', addBookToList)
   document.getElementById('book-list').addEventListener('click', deleteBookFromList)
 
@@ -78,10 +100,11 @@ function addBookToList(e){
   if (title === '' || author === '' || genre === '' || rating === ''){
     ui.showAlert('Please ensure all fields are filled in', 'error')
   } else {
-    // Add book to list, clear fields, show success
+    // Add book to list, clear fields, show success, add to LS
     console.log(book)
     ui.addBook(book)
     ui.showAlert('Book added successfully!', 'success')
+    LocalStorage.addBook(book)
     ui.clearFields()
   }
 
