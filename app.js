@@ -75,8 +75,14 @@ class LocalStorage {
     books.push(book)
     localStorage.setItem('books', JSON.stringify(books))
   }
-  static deleteBook(){
+  static deleteBook(title){
     const books = LocalStorage.getBooks()
+    books.forEach(function(book, index){
+      if(book.title === title){
+        books.splice(index, 1)
+      }
+    })
+    localStorage.setItem('books', JSON.stringify(books))
   }
 }
  
@@ -117,6 +123,8 @@ function deleteBookFromList(e){
   // Delete book from list and show success
   ui.deleteBook(e.target)
   ui.showAlert('Book successfully deleted!', 'success')
+  // Delete from local storage
+  LocalStorage.deleteBook(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent)
 
 
   e.preventDefault()
