@@ -78,13 +78,12 @@ function addBookToList(e){
   if (title === '' || author === '' || genre === '' || rating === ''){
     ui.showAlert('Please ensure all fields are filled in', 'error')
   } else {
-    // Add book to list, clear fields
+    // Add book to list, clear fields, show success
     console.log(book)
     ui.addBook(book)
+    ui.showAlert('Book added successfully!', 'success')
     ui.clearFields()
   }
-  
-  
 
   e.preventDefault()
 }
@@ -92,8 +91,9 @@ function addBookToList(e){
 function deleteBookFromList(e){
   // Instantiate UI
   const ui = new UI()
-  // Delete book from list
+  // Delete book from list and show success
   ui.deleteBook(e.target)
+  ui.showAlert('Book successfully deleted!', 'success')
 
 
   e.preventDefault()
