@@ -1,3 +1,6 @@
+body {
+  background: #eaf4f4
+}
 .success, .error {
   color: white;
   padding: 5px;
@@ -10,4 +13,10 @@
 
 .error {
   background: red;
+}
+#submit-btn {
+  background-color: #cce3de;
+}
+.fa-solid {
+  color: #a4c3b2
 }
